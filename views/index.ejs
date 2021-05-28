@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="https://learn.village88.com/assets/black_ninja-9adea777014ced1d5d36046555cf036c.ico?v=2" type="image/x-icon">
+        <link rel="stylesheet" href="/stylesheets/index.css">
+        <script src="https://kit.fontawesome.com/929adf1879.js" crossorigin="anonymous"></script>
+        <title>Village88 | NodeJS (Express) | Epic Button Game</title>
+    </head>
+    <body>
+        <header>
+            <h1 id="message"></h1>
+        </header>
+        <section>
+            <p>Push the button to updated the count!</p>
+            <button id="epicBtn">PUSH THE EPIC BUTTON</button>
+            <button id="reset">RESET</button>
+        </section>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script>
+            $(document).ready(function(){
+                const socket = io();
+
+                $("#epicBtn").click(function(){
+                    socket.emit("epic_button_clicked");
+                });
+
+                $("#reset").click(function(){
+                    socket.emit("reset");
+                });
+
+                socket.on("update_count", data => {
+                    $("#message").html(`The button has been pushed ${data.count} ${data.word}`);
+                });
+            });
+        </script>
+    </body>
+</html>
