@@ -33,7 +33,7 @@
                 });
 
                 socket.on("update_count", data => {
-                    $("#message").html(`The button has been pushed ${data.count} ${data.word}`);
+                    $("#message").html(data.message);
                 });
             });
         </script>
